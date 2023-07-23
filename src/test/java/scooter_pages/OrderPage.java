@@ -1,4 +1,4 @@
-package scooterpages;
+package scooter_pages;
 
 import org.openqa.selenium.By;
 
@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
-public class OrderModal {
+public class OrderPage {
     private final WebDriver driver;
 
     // Локаторы
@@ -17,6 +17,7 @@ public class OrderModal {
     private final By metroSelect = By.className("select-search");
     private final By metroOption = By.xpath("//div[contains(text(), 'Черкизовская')]");
     private final By phoneInput = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
+    private final By nextButton = By.linkText("Далее");
     private final By deliveryDateInput = By.xpath("//input[@placeholder='* Когда привезти самокат']");
     private final By deliveryDateOption = By.className("react-datepicker__day--024");
     private final By deliveryTimeSelect = By.className("Dropdown-control");
@@ -26,7 +27,7 @@ public class OrderModal {
     private final By placeOrderButton = By.xpath("//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']");
     private final By orderModalWindow = By.xpath("//div[@class='Order_Modal__YZ-d3']//button[text()='Посмотреть статус']");
 
-    public OrderModal(WebDriver driver) {
+    public OrderPage(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -57,6 +58,9 @@ public class OrderModal {
 
     public WebElement getPhoneInput() {
         return driver.findElement(phoneInput);
+    }
+    public WebElement getNextButton() {
+        return driver.findElement(nextButton);
     }
 
     public WebElement getDeliveryDateInput() {

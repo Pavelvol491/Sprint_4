@@ -1,20 +1,12 @@
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import scooterpages.DropdownArea;
-import scooterpages.OrderModal;
 
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +14,8 @@ import java.util.List;
 public class Main {
 
     private final String expectedText;
+    private static final String scooter_URL = "https://qa-scooter.praktikum-services.ru/";
+    private WebDriver driver;
 
     public Main(String expectedText) {
         this.expectedText = expectedText;
@@ -32,77 +26,74 @@ public class Main {
         // Ожидаемые тексты для каждой панели
         return Arrays.asList(new Object[][]{
                 {"Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
-                {"Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."}
+                {"Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
+                {"Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."},
+                {"Только начиная с завтрашнего дня. Но скоро станем расторопнее."},
+                {"Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."},
+                {"Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
+                {"Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
+                {"Да, обязательно. Всем самокатов! И Москве, и Московской области."}
         });
+    }
+
+    @Before
+    public void setUp() {
+        // Установка пути к драйверу Firefox (GeckoDriver)
+        System.setProperty("webdriver.gecko.driver", "C:\\Users\\alkor\\MyProjectAAA\\WebDriver\\Firefox\\geckodriver.exe");
+        // Создание экземпляра WebDriver для Firefox
+        driver = new FirefoxDriver();
     }
 
     @Test
     public void testAccordionPanels() {
-        // Установка пути к драйверу Firefox (GeckoDriver)
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\alkor\\MyProjectAAA\\WebDriver\\Firefox\\geckodriver.exe");
-
-        // Создание экземпляра WebDriver для Firefox
-        WebDriver driver = new FirefoxDriver();
-
         // Открытие страницы
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooter_URL);
 
-        DropdownArea dropdownArea = new DropdownArea(driver);
+        MainPage mainPage = new MainPage(driver);
 
         // Ожидание появления элементов панелей с accordion__panel-0 до accordion__panel-7
         for (int i = 0; i < 2; i++) {
-            dropdownArea.getAccordionHeading(i).click();
-            String actualText = dropdownArea.getPanelElementById(i).getText();
+            mainPage.getAccordionHeading(i).click();
+            String actualText = mainPage.getPanelElementById(i).getText();
 
-            if (actualText.equals(expectedText)) {
-                System.out.println("Текст панели " + i + " соответствует ожидаемому значению.");
-            } else {
-                System.out.println("Текст панели " + i + " не соответствует ожидаемому значению.");
-            }
+            // Сравнение текста элемента с ожидаемым значением с использованием assert
+            Assert.assertEquals("Текст панели " + i + " не соответствует ожидаемому значению.", expectedText, actualText);
         }
-
-        // Закрытие браузера
-        driver.quit();
     }
 
     @Test
     public void testOrderButton() {
-        // Установка пути к драйверу Firefox (GeckoDriver)
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\alkor\\MyProjectAAA\\WebDriver\\Firefox\\geckodriver.exe");
-
-        // Создание экземпляра WebDriver для Firefox
-        WebDriver driver = new FirefoxDriver();
-
         // Открытие страницы
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooter_URL);
 
-        OrderModal orderModal = new OrderModal(driver);
+        OrderPage orderPage = new OrderPage(driver);
 
         // Взаимодействие с элементами на модальном окне заказа
-        orderModal.getOrderButton().click();
-        orderModal.getFirstNameInput().sendKeys("Иван");
-        orderModal.getLastNameInput().sendKeys("Иванов");
-        orderModal.getAddressInput().sendKeys("Иваново. Ивановский переулок, дом 6");
-        orderModal.getMetroSelect().click();
-        orderModal.getMetroOption().click();
-        orderModal.getPhoneInput().sendKeys("12345678900");
-        orderModal.getDeliveryDateInput().click();
-        orderModal.getDeliveryDateOption().click();
-        orderModal.getDeliveryTimeSelect().click();
-        orderModal.getDeliveryTimeOption().click();
-        orderModal.getColorCheckbox().click();
-        orderModal.getCommentInput().sendKeys("Иванов");
-        orderModal.getPlaceOrderButton().click();
+        orderPage.getOrderButton().click();
+        orderPage.getFirstNameInput().sendKeys("Иван");
+        orderPage.getLastNameInput().sendKeys("Иванов");
+        orderPage.getAddressInput().sendKeys("Иваново. Ивановский переулок, дом 6");
+        orderPage.getMetroSelect().click();
+        orderPage.getMetroOption().click();
+        orderPage.getPhoneInput().sendKeys("12345678900");
+        orderPage.getNextButton().click();
+        orderPage.getDeliveryDateInput().click();
+        orderPage.getDeliveryDateOption().click();
+        orderPage.getDeliveryTimeSelect().click();
+        orderPage.getDeliveryTimeOption().click();
+        orderPage.getColorCheckbox().click();
+        orderPage.getCommentInput().sendKeys("Иванов");
+        orderPage.getPlaceOrderButton().click();
 
-        // Проверка, что модальное окно появилось
-        if (orderModal.getOrderModalWindow().isDisplayed()) {
-            System.out.println("Модальное окно появилось!");
-            // Дополнительные действия с модальным окном
-        } else {
-            System.out.println("Модальное окно не появилось.");
+        // Проверка, что модальное окно появилось с использованием assert
+        Assert.assertTrue("Модальное окно не появилось.", orderPage.getOrderModalWindow().isDisplayed());
+    }
+
+    @After
+    public void tearDown() {
+        // Закрытие браузера after each test
+        if (driver != null) {
+            driver.quit();
         }
-
-        // Закрытие браузера
-        driver.quit();
     }
 }

@@ -1,16 +1,16 @@
-package scooterpages;
+package scooter_pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class DropdownArea {
+public class MainPage {
     private final WebDriver driver;
 
     // Локаторы
     private final By accordionHeadings = By.className("accordion__heading");
 
-    public DropdownArea(WebDriver driver) {
+    public MainPage(WebDriver driver) {
         this.driver = driver;
     }
 
