@@ -17,7 +17,7 @@ public class OrderPage {
     private final By metroSelect = By.className("select-search");
     private final By metroOption = By.xpath("//div[contains(text(), 'Черкизовская')]");
     private final By phoneInput = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
-    private final By nextButton = By.linkText("Далее");
+    private final By nextButton = By.xpath("//div[@class='Order_NextButton__1_rCA']//button[text()='Далее']");
     private final By deliveryDateInput = By.xpath("//input[@placeholder='* Когда привезти самокат']");
     private final By deliveryDateOption = By.className("react-datepicker__day--024");
     private final By deliveryTimeSelect = By.className("Dropdown-control");

@@ -9,6 +9,8 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.release>11</maven.compiler.release> <!-- JDK 11 -->
+    </properties>
     </properties>
     <dependencies>
           <dependency>
@@ -16,5 +18,17 @@
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
         </dependency>
-        </dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>4.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <version>4.10.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

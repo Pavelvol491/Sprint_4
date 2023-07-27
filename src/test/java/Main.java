@@ -14,7 +14,7 @@ import java.util.List;
 public class Main {
 
     private final String expectedText;
-    private static final String scooter_URL = "https://qa-scooter.praktikum-services.ru/";
+    private static final String SCOOTER_URL = "https://qa-scooter.praktikum-services.ru/";
     private WebDriver driver;
 
     public Main(String expectedText) {
@@ -39,15 +39,18 @@ public class Main {
     @Before
     public void setUp() {
         // Установка пути к драйверу Firefox (GeckoDriver)
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\alkor\\MyProjectAAA\\WebDriver\\Firefox\\geckodriver.exe");
+        //System.setProperty("webdriver.gecko.driver", "C:\\Users\\alkor\\MyProjectAAA\\WebDriver\\Firefox\\geckodriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\alkor\\MyProjectAAA\\WebDriver\\bin\\chromedriver.exe");
         // Создание экземпляра WebDriver для Firefox
-        driver = new FirefoxDriver();
+        //driver = new FirefoxDriver();
+        WebDriver driver = new ChromeDriver();
+
     }
 
     @Test
     public void testAccordionPanels() {
         // Открытие страницы
-        driver.get(scooter_URL);
+        driver.get(SCOOTER_URL);
 
         MainPage mainPage = new MainPage(driver);
 
@@ -60,35 +63,16 @@ public class Main {
             Assert.assertEquals("Текст панели " + i + " не соответствует ожидаемому значению.", expectedText, actualText);
         }
     }
-
     @Test
     public void testOrderButton() {
-        // Открытие страницы
-        driver.get(scooter_URL);
-
-        OrderPage orderPage = new OrderPage(driver);
-
-        // Взаимодействие с элементами на модальном окне заказа
-        orderPage.getOrderButton().click();
-        orderPage.getFirstNameInput().sendKeys("Иван");
-        orderPage.getLastNameInput().sendKeys("Иванов");
-        orderPage.getAddressInput().sendKeys("Иваново. Ивановский переулок, дом 6");
-        orderPage.getMetroSelect().click();
-        orderPage.getMetroOption().click();
-        orderPage.getPhoneInput().sendKeys("12345678900");
-        orderPage.getNextButton().click();
-        orderPage.getDeliveryDateInput().click();
-        orderPage.getDeliveryDateOption().click();
-        orderPage.getDeliveryTimeSelect().click();
-        orderPage.getDeliveryTimeOption().click();
-        orderPage.getColorCheckbox().click();
-        orderPage.getCommentInput().sendKeys("Иванов");
-        orderPage.getPlaceOrderButton().click();
-
-        // Проверка, что модальное окно появилось с использованием assert
-        Assert.assertTrue("Модальное окно не появилось.", orderPage.getOrderModalWindow().isDisplayed());
+        TestOrderButton orderButtonTest = new TestOrderButton(driver);
+        orderButtonTest.testOrderButton();
     }
-
+    @Test
+    public void testOrderButton2() {
+        TestOrderButton2 orderButton2Test = new TestOrderButton2(driver);
+        orderButton2Test.testOrderButton2();
+    }
     @After
     public void tearDown() {
         // Закрытие браузера after each test
