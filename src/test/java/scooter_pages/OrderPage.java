@@ -1,97 +1,139 @@
 package scooter_pages;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import static org.junit.Assert.assertTrue;
 
 
 public class OrderPage {
-    private final WebDriver driver;
+    private WebDriver driver;
+    // локатор для верхней кнопки заказать
+    private By orderButtonUp = By.xpath("/html/body/div/div/div/div[1]/div[2]/button[1]");
+    // локатор для нижней кнопки заказать
+    private By orderButtonDown = By.xpath("/html/body/div/div/div/div[4]/div[2]/div[5]/button");
+    //локатор для кнопки куки
+    private By cookieButton = By.id("rcc-confirm-button");
+    //локаторы первой страницы оформления заказа
+    //локатор для поля имя
+    private By firstNameField = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[1]/input");
+    //локатор для поля фамилия
+    private By lastNameField = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/input");
+    //лоатор для адреса
+    private By addressField = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[3]/input");
+    //локатор для метро
+    private By metroField = By.className("select-search__input");
+    //локатор для номер телефона
+    private By phoneNumField = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[5]/input");
+    //локатор для кнопки далее
+    private By nextButton = By.xpath("//*[@id=\"root\"]/div/div[2]/div[3]/button");
+    //локаторы второй страницы оформления заказа
+    //локатор даты доставки самоката
+    private By deliveryDateField = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[1]/div/div/input");
+    //локатор срока аренды самоката
+    private By rentalPeriodField = By.className("Dropdown-placeholder");
+    //локатор выбора цвета самоката
+    private By colorField = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[3]");
+    //локатор поля для комментариев
+    private By commentField = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[4]/input");
+    //локатор кнопки заказать на второй странице оформления заказа
+    private By orderButtonInOrder = By.xpath("//*[@id=\"root\"]/div/div[2]/div[3]/button[2]");
+    //третья страница заказа с подтверждением заказа
+    //локтор для кнопки да
+    private By yesButton = By.xpath("//*[@id=\"root\"]/div/div[2]/div[5]/div[2]/button[2]");
+    //четвертая страница заказа с информацие, что заказ оформлен.
+    //локатор текста с информацией о заказе
+    private By orderInfo = By.xpath("/html/body/div/div/div[2]/div[5]/div[1]");
 
-    // Локаторы
-    private final By orderButton = By.xpath("//div[@class='Header_Nav__AGCXC']//button[text()='Заказать']");
-    private final By firstNameInput = By.xpath("//input[@placeholder='* Имя']");
-    private final By lastNameInput = By.xpath("//input[@placeholder='* Фамилия']");
-    private final By addressInput = By.xpath("//input[@placeholder='* Адрес: куда привезти заказ']");
-    private final By metroSelect = By.className("select-search");
-    private final By metroOption = By.xpath("//div[contains(text(), 'Черкизовская')]");
-    private final By phoneInput = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
-    private final By nextButton = By.xpath("//div[@class='Order_NextButton__1_rCA']//button[text()='Далее']");
-    private final By deliveryDateInput = By.xpath("//input[@placeholder='* Когда привезти самокат']");
-    private final By deliveryDateOption = By.className("react-datepicker__day--024");
-    private final By deliveryTimeSelect = By.className("Dropdown-control");
-    private final By deliveryTimeOption = By.xpath("//div[contains(text(), 'пятеро суток')]");
-    private final By colorCheckbox = By.id("black");
-    private final By commentInput = By.xpath("//input[@placeholder='Комментарий для курьера']");
-    private final By placeOrderButton = By.xpath("//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']");
-    private final By orderModalWindow = By.xpath("//div[@class='Order_Modal__YZ-d3']//button[text()='Посмотреть статус']");
-
-    public OrderPage(WebDriver driver) {
+    public OrderPage(WebDriver driver){
         this.driver = driver;
     }
-
-    // Методы для работы с элементами на модальном окне заказа
-    public WebElement getOrderButton() {
-        return driver.findElement(orderButton);
+    //метод для принятия куки
+    public void clickCookie() {
+        driver.findElement(cookieButton).click();
     }
-
-    public WebElement getFirstNameInput() {
-        return driver.findElement(firstNameInput);
+    //метод для нажатия верхней кнопки заказать
+    public void clickOrderButton(boolean isUp) {
+        if(isUp)
+            clickOrderButtonUp();
+        else clickOrderButtonDown();
     }
-
-    public WebElement getLastNameInput() {
-        return driver.findElement(lastNameInput);
+    public void clickOrderButtonUp() {
+        driver.findElement(orderButtonUp).click();
     }
-
-    public WebElement getAddressInput() {
-        return driver.findElement(addressInput);
+    //метод для прокрутки до нижней кнопки заказать и нажатие на нее
+    public void clickOrderButtonDown() {
+        WebElement button = driver.findElement(orderButtonDown);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", button);
+        driver.findElement(orderButtonDown).click();
     }
-
-    public WebElement getMetroSelect() {
-        return driver.findElement(metroSelect);
+    //метод заполнения поля имя
+    public void setFirstNameField (String firstName) {
+        driver.findElement(firstNameField).sendKeys(firstName);
     }
-
-    public WebElement getMetroOption() {
-        return driver.findElement(metroOption);
+    //метод заполнения поля фамилия
+    public void setLastNameField (String lastName) {
+        driver.findElement(lastNameField).sendKeys(lastName);
     }
-
-    public WebElement getPhoneInput() {
-        return driver.findElement(phoneInput);
+    //метод заполнения поля адрес
+    public void setAddressNameField (String addressName) {
+        driver.findElement(addressField).sendKeys(addressName);
     }
-    public WebElement getNextButton() {
-        return driver.findElement(nextButton);
+    //метод заполнения поля метро
+    public void clickMetroField(String metro) {
+        driver.findElement(metroField).click();
+        driver.findElement(By.xpath(".//button[@value='"+metro+"']")).click();
     }
-
-    public WebElement getDeliveryDateInput() {
-        return driver.findElement(deliveryDateInput);
+    //метод заполнения поля номер телефона
+    public void setPhoneNumField (String number) {
+        driver.findElement(phoneNumField).sendKeys(number);
     }
-
-    public WebElement getDeliveryDateOption() {
-        return driver.findElement(deliveryDateOption);
+    //метод для заполнения данных в певой странице оформления заказа
+    public void login (String firstName, String lastName, String addressName, String number) {
+        setFirstNameField(firstName);
+        setLastNameField(lastName);
+        setAddressNameField(addressName);
+        setPhoneNumField(number);
     }
-
-    public WebElement getDeliveryTimeSelect() {
-        return driver.findElement(deliveryTimeSelect);
+    //метод нажатие кнопки далее
+    public void clickNextButton() {
+        driver.findElement(nextButton).click();
     }
-
-    public WebElement getDeliveryTimeOption() {
-        return driver.findElement(deliveryTimeOption);
+    //метод заполнения поля дата доставки
+    public void setDeliveryDateField() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = new Date();
+        driver.findElement(deliveryDateField).click();
+        driver.findElement(deliveryDateField).sendKeys(formatter.format(date));
+        driver.findElement(deliveryDateField).sendKeys(Keys.ENTER);
     }
-
-    public WebElement getColorCheckbox() {
-        return driver.findElement(colorCheckbox);
+    //метод заполнения поля срок аренды
+    public void setRentalPeriodField(int rentTime) {
+        driver.findElement(rentalPeriodField).click();
+        driver.findElement(rentalPeriodField).findElement(By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div[2]/div["+rentTime+"]")).click();
     }
-
-    public WebElement getCommentInput() {
-        return driver.findElement(commentInput);
+    //метод заполнения поля цвета самоката
+    public void setColorField(String color) {
+        driver.findElement(colorField);
+        driver.findElement(By.xpath("//*[@id=\""+color+"\"]")).click();
     }
-
-    public WebElement getPlaceOrderButton() {
-        return driver.findElement(placeOrderButton);
+    //метод заполнения поля комментарии
+    public void setCommentField(String comment) {
+        driver.findElement(commentField).sendKeys(comment);
     }
-
-    public WebElement getOrderModalWindow() {
-        return driver.findElement(orderModalWindow);
+    //метод нажатия кнопки заказать после оформления заказа
+    public void clickOrderButtonInOrder() {
+        driver.findElement(orderButtonInOrder).click();
+    }
+    //метод нажатия кнопки да
+    public void clickYesButton() {
+        driver.findElement(yesButton).click();
+    }
+    //метод для проверки, что заказ оформлен
+    public void confirmOrderInfo() {
+        String text = driver.findElement(orderInfo).getText();
+        String textPart = "Заказ оформлен";
+        assertTrue(text.contains(textPart));
     }
 }

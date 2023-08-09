@@ -1,83 +1,65 @@
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import scooter_pages.MainPage;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.Arrays;
-import java.util.List;
+import java.time.Duration;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class Main {
-
-    private final String expectedText;
-    private static final String SCOOTER_URL = "https://qa-scooter.praktikum-services.ru/";
     private WebDriver driver;
+    MainPage MainPage;
+    private final String text;
+    private final int index;
 
-    public Main(String expectedText) {
-        this.expectedText = expectedText;
+    public Main(String text, int index) {
+        this.text = text;
+        this.index = index;
     }
 
     @Parameterized.Parameters
-    public static List<Object[]> getExpectedTexts() {
-        // Ожидаемые тексты для каждой панели
-        return Arrays.asList(new Object[][]{
-                {"Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
-                {"Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
-                {"Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."},
-                {"Только начиная с завтрашнего дня. Но скоро станем расторопнее."},
-                {"Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."},
-                {"Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
-                {"Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
-                {"Да, обязательно. Всем самокатов! И Москве, и Московской области."}
-        });
+    public static Object[] getText() {
+        return new Object[][]{
+                {"Сутки — 400 рублей. Оплата курьеру — наличными или картой.", 0},
+                {"Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.", 1},
+                {"Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.", 2},
+                {"Только начиная с завтрашнего дня. Но скоро станем расторопнее.", 3},
+                {"Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.", 4},
+                {"Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.", 5},
+                {"Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.", 6},
+                {"Да, обязательно. Всем самокатов! И Москве, и Московской области.", 7},
+        };
     }
 
     @Before
     public void setUp() {
-        // Установка пути к драйверу Firefox (GeckoDriver)
-        //System.setProperty("webdriver.gecko.driver", "C:\\Users\\alkor\\MyProjectAAA\\WebDriver\\Firefox\\geckodriver.exe");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\alkor\\MyProjectAAA\\WebDriver\\bin\\chromedriver.exe");
-        // Создание экземпляра WebDriver для Firefox
-        //driver = new FirefoxDriver();
-        WebDriver driver = new ChromeDriver();
-
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+        driver = new ChromeDriver(options);
+        //FirefoxOptions options = new FirefoxOptions();
+        //driver = new FirefoxDriver(options);
+        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        MainPage = new MainPage(driver);
+        MainPage.clickCookie();
     }
 
     @Test
-    public void testAccordionPanels() {
-        // Открытие страницы
-        driver.get(SCOOTER_URL);
-
-        MainPage mainPage = new MainPage(driver);
-
-        // Ожидание появления элементов панелей с accordion__panel-0 до accordion__panel-7
-        for (int i = 0; i < 2; i++) {
-            mainPage.getAccordionHeading(i).click();
-            String actualText = mainPage.getPanelElementById(i).getText();
-
-            // Сравнение текста элемента с ожидаемым значением с использованием assert
-            Assert.assertEquals("Текст панели " + i + " не соответствует ожидаемому значению.", expectedText, actualText);
-        }
+    public void checkOneQuestion() {
+        MainPage.scrollToQuestionList();
+        MainPage.clickQuestions(index);
+        assertEquals("Текст не совпадает", text, MainPage.getAnswer(index));
     }
-    @Test
-    public void testOrderButton() {
-        TestOrderButton orderButtonTest = new TestOrderButton(driver);
-        orderButtonTest.testOrderButton();
-    }
-    @Test
-    public void testOrderButton2() {
-        TestOrderButton2 orderButton2Test = new TestOrderButton2(driver);
-        orderButton2Test.testOrderButton2();
-    }
+
     @After
     public void tearDown() {
-        // Закрытие браузера after each test
-        if (driver != null) {
-            driver.quit();
-        }
+        driver.quit();
     }
 }
