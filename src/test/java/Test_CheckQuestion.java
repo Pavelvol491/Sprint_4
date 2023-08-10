@@ -1,4 +1,5 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,13 +14,13 @@ import java.time.Duration;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class Main {
+public class Test_CheckQuestion {
     private WebDriver driver;
     MainPage MainPage;
     private final String text;
     private final int index;
 
-    public Main(String text, int index) {
+    public Test_CheckQuestion(String text, int index) {
         this.text = text;
         this.index = index;
     }
@@ -45,7 +46,7 @@ public class Main {
         driver = new ChromeDriver(options);
         //FirefoxOptions options = new FirefoxOptions();
         //driver = new FirefoxDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooter_pages.MainPage.SCOOTER_URL);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         MainPage = new MainPage(driver);
         MainPage.clickCookie();
@@ -55,7 +56,7 @@ public class Main {
     public void checkOneQuestion() {
         MainPage.scrollToQuestionList();
         MainPage.clickQuestions(index);
-        assertEquals("Текст не совпадает", text, MainPage.getAnswer(index));
+        Assert.assertEquals("Текст не совпадает", text, MainPage.getAnswer(index));
     }
 
     @After

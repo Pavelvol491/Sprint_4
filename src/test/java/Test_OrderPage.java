@@ -7,13 +7,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import scooter_pages.OrderPage;
+import scooter_pages.MainPage;
 
 import java.time.Duration;
 
 @RunWith(Parameterized.class)
-public class Main2 {
+public class Test_OrderPage {
     private WebDriver driver;
-    OrderPage NewOrder;
+    OrderPage newOrder;
     boolean isUp; // если верхняя кнопка true, если нижняя false
     String firstName;
     String lastName;
@@ -25,7 +26,7 @@ public class Main2 {
     String color; //black or grey
 
 
-    public Main2(boolean isUp, String firstName, String lastName, String addressName, String metro, String number, int rentTime, String yourComment, String color) {
+    public Test_OrderPage(boolean isUp, String firstName, String lastName, String addressName, String metro, String number, int rentTime, String yourComment, String color) {
         this.isUp = isUp;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,30 +53,32 @@ public class Main2 {
         //driver = new ChromeDriver(options);
         FirefoxOptions options = new FirefoxOptions();
         driver = new FirefoxDriver(options);
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(MainPage.SCOOTER_URL);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        NewOrder = new OrderPage(driver);
-        NewOrder.clickCookie();
+        newOrder = new OrderPage(driver);
+        newOrder.clickCookie();
     }
 
     @Test
     //первый набор тест данных
     public void checkOrder() {
-        NewOrder.clickOrderButton(isUp);
-        NewOrder.login(firstName, lastName, addressName, number);
-        NewOrder.clickMetroField(metro);
-        NewOrder.clickNextButton();
-        NewOrder.setDeliveryDateField();
-        NewOrder.setRentalPeriodField(rentTime);
-        NewOrder.setColorField(color);
-        NewOrder.setCommentField(yourComment);
-        NewOrder.clickOrderButtonInOrder();
-        NewOrder.clickYesButton();
-        NewOrder.confirmOrderInfo();
+        newOrder.clickOrderButton(isUp);
+        newOrder.login(firstName, lastName, addressName, number);
+        newOrder.clickMetroField(metro);
+        newOrder.clickNextButton();
+        newOrder.setDeliveryDateField();
+        newOrder.setRentalPeriodField(rentTime);
+        newOrder.setColorField(color);
+        newOrder.setCommentField(yourComment);
+        newOrder.clickOrderButtonInOrder();
+        newOrder.clickYesButton();
+        newOrder.confirmOrderInfo();
     }
 
     @After
     public void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

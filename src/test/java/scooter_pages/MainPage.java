@@ -8,6 +8,7 @@ import java.time.Duration;
 
 public class MainPage {
     private WebDriver driver;
+    public static final String SCOOTER_URL = "https://qa-scooter.praktikum-services.ru/";
     //локатор для списка вопросов
     private By questionList = By.className("accordion");
     //локатор для кнопки куки
