@@ -8,11 +8,11 @@ import static org.junit.Assert.assertTrue;
 
 
 public class OrderPage {
-    private WebDriver driver;
+   private WebDriver driver;
     // локатор для верхней кнопки заказать
     private By orderButtonUp = By.xpath("//div[@class='Header_Nav__AGCXC']//button[text()='Заказать']");
     // локатор для нижней кнопки заказать
-    private By orderButtonDown = By.xpath("/html/body/div/div/div/div[4]/div[2]/div[5]/button");
+    private By orderButtonDown = By.xpath("//div[@class='Home_FinishButton__1_cWm']//button[text()='Заказать']");
     //локатор для кнопки куки
     private By cookieButton = By.id("rcc-confirm-button");
     //локаторы первой страницы оформления заказа
@@ -27,7 +27,7 @@ public class OrderPage {
     //локатор для номер телефона
     private By phoneNumField = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
     //локатор для кнопки далее
-    private By nextButton = By.xpath("//*[@id=\"root\"]/div/div[2]/div[3]/button");
+    private By nextButton = By.xpath("//div[@class='Order_NextButton__1_rCA']//button[text()='Далее']");
     //локаторы второй страницы оформления заказа
     //локатор даты доставки самоката
     private By deliveryDateField = By.xpath("//input[@placeholder='* Когда привезти самокат']");
@@ -41,10 +41,10 @@ public class OrderPage {
     private By orderButtonInOrder = By.xpath("//div[@class='Order_Buttons__1xGrp']//button[text()='Заказать']");
     //третья страница заказа с подтверждением заказа
     //локтор для кнопки да
-    private By yesButton = By.xpath("//*[@id=\"root\"]/div/div[2]/div[5]/div[2]/button[2]");
+    private By yesButton = By.xpath("//div[@class='Order_Buttons__1xGrp']//button[text()='Да']");
     //четвертая страница заказа с информацие, что заказ оформлен.
     //локатор текста с информацией о заказе
-    private By orderInfo = By.xpath("/html/body/div/div/div[2]/div[5]/div[1]");
+    private By orderInfo = By.xpath("//div[@class='Order_ModalHeader__3FDaJ']");
 
     public OrderPage(WebDriver driver){
         this.driver = driver;

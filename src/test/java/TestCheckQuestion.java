@@ -14,13 +14,13 @@ import java.time.Duration;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
-public class Test_CheckQuestion {
+public class TestCheckQuestion {
     private WebDriver driver;
     MainPage MainPage;
     private final String text;
     private final int index;
 
-    public Test_CheckQuestion(String text, int index) {
+    public TestCheckQuestion(String text, int index) {
         this.text = text;
         this.index = index;
     }

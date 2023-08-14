@@ -12,7 +12,7 @@ import scooter_pages.MainPage;
 import java.time.Duration;
 
 @RunWith(Parameterized.class)
-public class Test_OrderPage {
+public class TestOrderPage {
     private WebDriver driver;
     OrderPage newOrder;
     boolean isUp; // если верхняя кнопка true, если нижняя false
@@ -26,7 +26,7 @@ public class Test_OrderPage {
     String color; //black or grey
 
 
-    public Test_OrderPage(boolean isUp, String firstName, String lastName, String addressName, String metro, String number, int rentTime, String yourComment, String color) {
+    public TestOrderPage(boolean isUp, String firstName, String lastName, String addressName, String metro, String number, int rentTime, String yourComment, String color) {
         this.isUp = isUp;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -63,6 +63,21 @@ public class Test_OrderPage {
     //первый набор тест данных
     public void checkOrder() {
         newOrder.clickOrderButton(isUp);
+        newOrder.login(firstName, lastName, addressName, number);
+        newOrder.clickMetroField(metro);
+        newOrder.clickNextButton();
+        newOrder.setDeliveryDateField();
+        newOrder.setRentalPeriodField(rentTime);
+        newOrder.setColorField(color);
+        newOrder.setCommentField(yourComment);
+        newOrder.clickOrderButtonInOrder();
+        newOrder.clickYesButton();
+        newOrder.confirmOrderInfo();
+    }
+    @Test
+    //второй набор тест данных
+    public void checkOrder2nd() {
+        newOrder.clickOrderButtonDown();
         newOrder.login(firstName, lastName, addressName, number);
         newOrder.clickMetroField(metro);
         newOrder.clickNextButton();

@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ad1d84b4-e121-4d85-aa1b-282cb8c46200" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Test_CheckQuestion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Main2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Test_OrderPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/scooter_pages/MainPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/scooter_pages/MainPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Test_CheckQuestion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestCheckQuestion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Test_OrderPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/TestOrderPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/scooter_pages/OrderPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/scooter_pages/OrderPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,51 +61,50 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.editor&quot;
   }
 }</component>
-  <component name="RunManager" selected="JUnit.Test_OrderPage.checkOrder">
-    <configuration name="Test_CheckQuestion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.TestOrderPage.checkOrder2nd">
+    <configuration name="TestCheckQuestion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sprint4" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Test_CheckQuestion" />
+      <option name="MAIN_CLASS_NAME" value="TestCheckQuestion" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test_CheckQuestion.testAccordionPanels" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCheckQuestion.testOrderButton" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sprint4" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Test_CheckQuestion" />
-      <option name="METHOD_NAME" value="testAccordionPanels" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="PARAMETERS" value="[0]" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test_CheckQuestion.testOrderButton" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sprint4" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Test_CheckQuestion" />
+      <option name="MAIN_CLASS_NAME" value="TestCheckQuestion" />
       <option name="METHOD_NAME" value="testOrderButton" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test_OrderPage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestOrderPage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sprint4" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Test_OrderPage" />
+      <option name="MAIN_CLASS_NAME" value="TestOrderPage" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test_OrderPage.checkOrder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TestOrderPage.checkOrder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sprint4" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="Test_OrderPage" />
+      <option name="MAIN_CLASS_NAME" value="TestOrderPage" />
       <option name="METHOD_NAME" value="checkOrder" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestOrderPage.checkOrder2nd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sprint4" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestOrderPage" />
+      <option name="METHOD_NAME" value="checkOrder2nd" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -114,11 +112,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Test_OrderPage.checkOrder" />
-        <item itemvalue="JUnit.Test_CheckQuestion" />
-        <item itemvalue="JUnit.Test_OrderPage" />
-        <item itemvalue="JUnit.Test_CheckQuestion.testOrderButton" />
-        <item itemvalue="JUnit.Test_CheckQuestion.testAccordionPanels" />
+        <item itemvalue="JUnit.TestOrderPage.checkOrder2nd" />
+        <item itemvalue="JUnit.TestOrderPage.checkOrder" />
+        <item itemvalue="JUnit.TestCheckQuestion" />
+        <item itemvalue="JUnit.TestOrderPage" />
+        <item itemvalue="JUnit.TestCheckQuestion.testOrderButton" />
       </list>
     </recent_temporary>
   </component>
@@ -139,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691619359655</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="New code for sprint_4 with corrections">
+      <option name="closed" value="true" />
+      <created>1691687484728</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1691687484728</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -155,6 +161,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="New code for sprint_4" />
-    <option name="LAST_COMMIT_MESSAGE" value="New code for sprint_4" />
+    <MESSAGE value="New code for sprint_4 with corrections" />
+    <option name="LAST_COMMIT_MESSAGE" value="New code for sprint_4 with corrections" />
   </component>
 </project>
